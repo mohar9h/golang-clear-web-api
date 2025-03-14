@@ -1,0 +1,31 @@
+server:
+  Port: 8080
+  RunMode: debug
+logger:
+  FilePath: ../logs/logs.log
+  Level: debug
+cors:
+  AllowOrigins: "*"
+postgres:
+  Host: localhost
+  Port: 5432
+  User: postgres
+  Password: Mohammad1367
+  DbName: car_sale_db
+  SslMode: false
+redis:
+  Host: localhost
+  Port: 6379
+  Password: Mohammad1367
+  db: 0
+  MinIdleConnections: 100
+  PoolSize: 5000
+  PoolTimeout: 240
+  
+password:
+  includeChars: true
+  includeDigits: true
+  minLength: 6
+  maxLength: 64
+  includeUppercase: true
+  includeLowercase: true

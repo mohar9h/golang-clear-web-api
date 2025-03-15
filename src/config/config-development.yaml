@@ -13,14 +13,18 @@ postgres:
   Password: Mohammad1367
   DbName: car_sale_db
   SslMode: false
+
 redis:
-  Host: localhost
-  Port: 6379
-  Password: Mohammad1367
+  host: localhost
+  port: 6379
+  password: Mohammad1367
   db: 0
-  MinIdleConnections: 100
-  PoolSize: 5000
-  PoolTimeout: 240
+  dialTimeout: 5
+  readTimeout: 5
+  writeTimeout: 5
+  poolSize: 10
+  poolTimeout: 15
+  idleCheckFrequency: 500
   
 password:
   includeChars: true

@@ -17,7 +17,7 @@ func InitServer() {
 
 	val, ok := binding.Validator.Engine().(*validator.Validate)
 	if ok {
-		err := val.RegisterValidation("mobile", validations.IranMobileValidator, true)
+		err := val.RegisterValidation("mobile", validations.IranianMobileNumberValidator, true)
 		if err != nil {
 			return
 		}

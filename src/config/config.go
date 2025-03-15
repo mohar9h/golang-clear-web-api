@@ -10,8 +10,13 @@ import (
 type Config struct {
 	Server   ServerConfig
 	Postgres PostgresConfig
+	Cors     CorsConfig
 	Redis    RedisConfig
 	Password PasswordConfig
+}
+
+type CorsConfig struct {
+	AllowOrigins string
 }
 
 type ServerConfig struct {

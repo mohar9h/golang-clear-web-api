@@ -1,6 +1,6 @@
 module github.com/mohar9h/golang-clear-web-api
 
-go 1.23.4
+go 1.23
 
 require (
 	github.com/didip/tollbooth v4.0.2+incompatible

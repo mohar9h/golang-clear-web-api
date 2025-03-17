@@ -2,6 +2,7 @@ package api
 
 import (
 	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/gin-gonic/gin/binding"
 	"github.com/go-playground/validator/v10"
@@ -11,25 +12,25 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/config"
 )
 
-func InitServer() {
-	cfg := config.GetConfig()
+func InitServer(config *config.Config) {
 	r := gin.New()
 
-	val, ok := binding.Validator.Engine().(*validator.Validate)
-	if ok {
-		err := val.RegisterValidation("mobile", validations.IranianMobileNumberValidator, true)
-		if err != nil {
-			return
-		}
-		err = val.RegisterValidation("password", validations.PasswordValidator, true)
-		if err != nil {
-			return
-		}
-
+	shouldReturn := RegisterValidator()
+	if shouldReturn {
+		return
 	}
-	r.Use(middlewares.Cors(cfg))
+	r.Use(middlewares.Cors(config))
 	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 
+	RegisterRoutes(r)
+
+	err := r.Run(fmt.Sprintf(":%s", config.Server.Port))
+	if err != nil {
+		return
+	}
+}
+
+func RegisterRoutes(r *gin.Engine) {
 	api := r.Group("/api")
 
 	v1 := api.Group("/v1")
@@ -39,9 +40,20 @@ func InitServer() {
 		routers.TestRouter(testRouter)
 		routers.Health(health)
 	}
+}
 
-	err := r.Run(fmt.Sprintf(":%s", cfg.Server.Port))
-	if err != nil {
-		return
+func RegisterValidator() bool {
+	val, ok := binding.Validator.Engine().(*validator.Validate)
+	if ok {
+		err := val.RegisterValidation("mobile", validations.IranianMobileNumberValidator, true)
+		if err != nil {
+			return true
+		}
+		err = val.RegisterValidation("password", validations.PasswordValidator, true)
+		if err != nil {
+			return true
+		}
+
 	}
+	return false
 }

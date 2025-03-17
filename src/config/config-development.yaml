@@ -12,7 +12,10 @@ postgres:
   User: postgres
   Password: Mohammad1367
   DbName: car_sale_db
-  SslMode: false
+  SslMode: disable
+  maxIdleConns: 15
+  maxOpenConns: 100
+  connMaxLifetime: 5
 
 redis:
   host: localhost

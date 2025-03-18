@@ -2,7 +2,6 @@ package db
 
 import (
 	"fmt"
-	"log"
 
 	"github.com/mohar9h/golang-clear-web-api/config"
 	"gorm.io/driver/postgres"
@@ -10,6 +9,8 @@ import (
 )
 
 var dbClient *gorm.DB
+
+var logger = logging.NewLogger(config.GetConfig())
 
 func InitDatabase(config *config.Config) error {
 	connection := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
@@ -28,7 +29,7 @@ func InitDatabase(config *config.Config) error {
 	sqlDb.SetMaxOpenConns(config.Postgres.MaxIdleConns)
 	sqlDb.SetConnMaxLifetime(config.Postgres.ConnMaxLifetime)
 
-	log.Println("Database connection established")
+	logger.Info(logger.Postgres, logger.Startup, "Database connection established", nil)
 	return nil
 }
 

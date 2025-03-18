@@ -21,6 +21,12 @@ type CorsConfig struct {
 	AllowOrigins string
 }
 
+type LoggerConfig struct {
+	FilePath string
+	Endoding string
+	Level    string
+}
+
 type ServerConfig struct {
 	Port    string
 	RunMode string

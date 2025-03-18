@@ -22,5 +22,5 @@ type Logger interface {
 }
 
 func NewLogger(config *config.Config) Logger {
-	return NewZapLogger(config)
+	return newZapLogger(config)
 }

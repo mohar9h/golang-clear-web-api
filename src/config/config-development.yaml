@@ -4,7 +4,8 @@ server:
 logger:
   filePath: ../logs/logs.log
   endoding: json
-  fevel: debug
+  level: debug
+  logger: zap
 cors:
   allowOrigins: "*"
 postgres:

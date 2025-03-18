@@ -26,6 +26,7 @@ type LoggerConfig struct {
 	FilePath string
 	Endoding string
 	Level    string
+	Logger   string
 }
 
 type ServerConfig struct {

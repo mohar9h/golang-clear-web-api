@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/mohar9h/golang-clear-web-api/config"
+	"github.com/mohar9h/golang-clear-web-api/logging"
 	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
@@ -29,7 +30,7 @@ func InitDatabase(config *config.Config) error {
 	sqlDb.SetMaxOpenConns(config.Postgres.MaxIdleConns)
 	sqlDb.SetConnMaxLifetime(config.Postgres.ConnMaxLifetime)
 
-	logger.Info(logger.Postgres, logger.Startup, "Database connection established", nil)
+	logger.Info(logging.Postgres, logging.Startup, "Database connection established", nil)
 	return nil
 }
 

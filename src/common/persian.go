@@ -14,7 +14,7 @@ var logger = logging.NewLogger(config.GetConfig())
 func IranianMobileValidate(mobileNumber string) bool {
 	res, err := regexp.MatchString(iranianMobileNumberPattern, mobileNumber)
 	if err != nil {
-		logger.Error(logger.Validation, logger.MobileValidation, err.Error(), nil)
+		logger.Error(logging.Validation, logging.MobileValidation, err.Error(), nil)
 	}
 	return res
 }

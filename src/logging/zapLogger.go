@@ -17,7 +17,7 @@ var logLevelMap = map[string]zapcore.Level{
 
 type zapLogger struct {
 	config *config.Config
-	logger *zap.SugarLogger
+	logger *zap.SugaredLogger
 }
 
 func newZapLogger(config *config.Config) *zapLogger {
@@ -36,7 +36,7 @@ func (z *zapLogger) getLogLevel() zapcore.Level {
 
 func (z *zapLogger) Init() {
 	w := zapcore.AddSync(&lumberjack.Logger{
-		Filename:   z.config.LogFile,
+		Filename:   z.config.Logger.FilePath,
 		MaxSize:    100, // megabytes
 		MaxBackups: 3,
 		MaxAge:     28, // days
@@ -52,7 +52,7 @@ func (z *zapLogger) Init() {
 		z.getLogLevel(),
 	)
 
-	logger := zap.New(core, zap.AddCaller,
+	logger := zap.New(core, zap.AddCaller(),
 		zap.AddCallerSkip(1), zap.AddStacktrace(zapcore.ErrorLevel)).Sugar()
 
 	z.logger = logger
@@ -63,7 +63,7 @@ func (z *zapLogger) Debug(category Category, subCategory SubCategory, message st
 }
 
 func (z *zapLogger) Debugf(template string, args ...interface{}) {
-	z.logger.Debugf(template, args...)
+	z.logger.Debugf(template, args)
 }
 
 func (z *zapLogger) Info(category Category, subCategory SubCategory, message string, extra map[ExtraKey]interface{}) {
@@ -71,7 +71,7 @@ func (z *zapLogger) Info(category Category, subCategory SubCategory, message str
 }
 
 func (z *zapLogger) Infof(template string, args ...interface{}) {
-	z.logger.Infof(template, args...)
+	z.logger.Infof(template, args)
 }
 
 func (z *zapLogger) Warn(category Category, subCategory SubCategory, message string, extra map[ExtraKey]interface{}) {
@@ -79,23 +79,23 @@ func (z *zapLogger) Warn(category Category, subCategory SubCategory, message str
 }
 
 func (z *zapLogger) Warnf(template string, args ...interface{}) {
-	z.logger.Warnf(template, args...)
+	z.logger.Warnf(template, args)
 }
 
-func (z *zapLogger) Error(err error, category Category, subCategory SubCategory, message string, extra map[ExtraKey]interface{}) {
+func (z *zapLogger) Error(category Category, subCategory SubCategory, message string, extra map[ExtraKey]interface{}) {
 	prepareLogKeys(extra, category, subCategory, z, message)
 }
 
-func (z *zapLogger) Errorf(err error, template string, args ...interface{}) {
-	z.logger.Errorf(template, args...)
+func (z *zapLogger) Errorf(template string, args ...interface{}) {
+	z.logger.Errorf(template, args)
 }
 
-func (z *zapLogger) Fatal(err error, category Category, subCategory SubCategory, message string, extra map[ExtraKey]interface{}) {
+func (z *zapLogger) Fatal(category Category, subCategory SubCategory, message string, extra map[ExtraKey]interface{}) {
 	prepareLogKeys(extra, category, subCategory, z, message)
 }
 
-func (z *zapLogger) Fatalf(err error, template string, args ...interface{}) {
-	z.logger.Fatalf(template, args...)
+func (z *zapLogger) Fatalf(template string, args ...interface{}) {
+	z.logger.Fatalf(template, args)
 }
 
 func prepareLogKeys(extra map[ExtraKey]interface{}, category Category, subCategory SubCategory, z *zapLogger, message string) {

@@ -22,6 +22,8 @@ func InitServer(config *config.Config) {
 	if shouldReturn {
 		return
 	}
+
+	register.Use(middlewares.DefaultStructureLogger(config))
 	register.Use(middlewares.Cors(config))
 	register.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 

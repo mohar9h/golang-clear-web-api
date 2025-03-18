@@ -90,8 +90,8 @@ services:
     container_name: postgres_container
     environment:
       POSTGRES_USER: postgres
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: car_sale_db
+      POSTGRES_PASSWORD: Mohammad1367
+      POSTGRES_dB: car_sale_db
       PGDATA: /data/postgres
     volumes:
       - postgres:/data/postgres
@@ -105,8 +105,8 @@ services:
     image: dpage/pgadmin4
     container_name: pgadmin_container
     environment:
-      PGADMIN_DEFAULT_EMAIL: h.naimaei@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: 123456
+      PGADMIN_DEFAULT_EMAIL: mohar9h@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: Mohammad1367
     volumes:
       - pgadmin:/var/lib/pgadmin
     ports:

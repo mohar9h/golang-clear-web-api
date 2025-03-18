@@ -16,26 +16,26 @@ import (
 )
 
 func InitServer(config *config.Config) {
-	r := gin.New()
+	register := gin.New()
 
 	shouldReturn := RegisterValidator()
 	if shouldReturn {
 		return
 	}
-	r.Use(middlewares.Cors(config))
-	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
+	register.Use(middlewares.Cors(config))
+	register.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 
-	RegisterRoutes(r)
-	RegisterSwagger(r, config)
+	RegisterRoutes(register)
+	RegisterSwagger(register, config)
 
-	err := r.Run(fmt.Sprintf(":%s", config.Server.Port))
+	err := register.Run(fmt.Sprintf(":%s", config.Server.Port))
 	if err != nil {
 		return
 	}
 }
 
-func RegisterRoutes(r *gin.Engine) {
-	api := r.Group("/api")
+func RegisterRoutes(register *gin.Engine) {
+	api := register.Group("/api")
 
 	v1 := api.Group("/v1")
 	{

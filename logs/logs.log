@@ -1,0 +1,2 @@
+{"level":"debug","ts":"2025-03-18T10:46:16.419+0330","caller":"logging/zapLogger.go:94","msg":"dial tcp 127.0.0.1:6379: connect: connection refused","Category":"Redis","SubCategory":"Startup"}
+{"level":"debug","ts":"2025-03-18T10:46:16.454+0330","caller":"logging/zapLogger.go:70","msg":"Database connection established","Category":"Postgres","SubCategory":"Startup"}

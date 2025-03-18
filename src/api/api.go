@@ -10,6 +10,9 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/api/routers"
 	"github.com/mohar9h/golang-clear-web-api/api/validations"
 	"github.com/mohar9h/golang-clear-web-api/config"
+	"github.com/mohar9h/golang-clear-web-api/docs"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func InitServer(config *config.Config) {
@@ -23,6 +26,7 @@ func InitServer(config *config.Config) {
 	r.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 
 	RegisterRoutes(r)
+	RegisterSwagger(r, config)
 
 	err := r.Run(fmt.Sprintf(":%s", config.Server.Port))
 	if err != nil {
@@ -56,4 +60,14 @@ func RegisterValidator() bool {
 
 	}
 	return false
+}
+
+func RegisterSwagger(routes *gin.Engine, config *config.Config) {
+	docs.SwaggerInfo.Title = "Golang Clear Web API"
+	docs.SwaggerInfo.Description = "This is a sample server for Golang Clear Web API."
+	docs.SwaggerInfo.Version = "1.0"
+	docs.SwaggerInfo.Host = fmt.Sprintf("localhost:%s", config.Server.Port)
+	docs.SwaggerInfo.BasePath = "/api"
+	docs.SwaggerInfo.Schemes = []string{"http"}
+	routes.GET("/swagger/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 }

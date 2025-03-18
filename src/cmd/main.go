@@ -9,6 +9,9 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/data/db"
 )
 
+// @securityDefinitions.api_key Bearer
+// @in header
+// @name Authorization
 func main() {
 	config := config.GetConfig()
 	err := cache.InitRedis(config)

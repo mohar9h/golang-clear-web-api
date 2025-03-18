@@ -2,7 +2,7 @@ server:
   port: 8080
   runMode: debug
 logger:
-  filePath: ../logs/logs.log
+  filePath: logs/logs.log
   endoding: json
   level: debug
   logger: zero

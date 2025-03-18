@@ -1,9 +1,0 @@
-{"level":"debug","ts":"2025-03-18T10:46:16.419+0330","caller":"logging/zapLogger.go:94","msg":"dial tcp 127.0.0.1:6379: connect: connection refused","Category":"Redis","SubCategory":"Startup"}
-{"level":"debug","ts":"2025-03-18T10:46:16.454+0330","caller":"logging/zapLogger.go:70","msg":"Database connection established","Category":"Postgres","SubCategory":"Startup"}
-{"level":"debug","ts":"2025-03-18T14:42:54.751+0330","caller":"logging/zapLogger.go:94","msg":"dial tcp 127.0.0.1:6379: connect: connection refused","Category":"Redis","SubCategory":"Startup"}
-{"level":"debug","ts":"2025-03-18T14:42:54.776+0330","caller":"logging/zapLogger.go:70","msg":"Database connection established","Category":"Postgres","SubCategory":"Startup"}
-{"level":"debug","ts":"2025-03-18T14:47:56.648+0330","caller":"logging/zapLogger.go:99","msg":"dial tcp 127.0.0.1:6379: connect: connection refused","AppName":"MyApp","LoggerName":"ZapLogger","Category":"Redis","SubCategory":"Startup"}
-{"level":"debug","ts":"2025-03-18T14:47:56.655+0330","caller":"logging/zapLogger.go:75","msg":"Database connection established","AppName":"MyApp","LoggerName":"ZapLogger","SubCategory":"Startup","Category":"Postgres"}
-{"level":"fatal","AppName":"MyApp","LoggerName":"Zerolog","Category":"Redis","SubCategory":"Startup","time":"2025-03-18T15:06:04+03:30","message":"dial tcp 127.0.0.1:6379: connect: connection refused"}
-{"level":"info","AppName":"MyApp","LoggerName":"Zerolog","Category":"Postgres","SubCategory":"Startup","time":"2025-03-18T15:07:28+03:30","message":"Database connection established"}
-{"level":"info","AppName":"MyApp","LoggerName":"Zerolog","Category":"Postgres","SubCategory":"Startup","time":"2025-03-18T15:43:53+03:30","message":"Database connection established"}

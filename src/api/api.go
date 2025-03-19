@@ -27,7 +27,7 @@ func InitServer(config *config.Config) {
 	register.Use(middlewares.Cors(config))
 	register.Use(gin.Logger(), gin.Recovery(), middlewares.LimitByRequest())
 
-	RegisterRoutes(register)
+	RegisterRoutes(register, config)
 	RegisterSwagger(register, config)
 
 	err := register.Run(fmt.Sprintf(":%s", config.Server.Port))
@@ -36,15 +36,15 @@ func InitServer(config *config.Config) {
 	}
 }
 
-func RegisterRoutes(register *gin.Engine) {
+func RegisterRoutes(register *gin.Engine, config *config.Config) {
 	api := register.Group("/api")
 
 	v1 := api.Group("/v1")
 	{
 		health := v1.Group("health")
-		testRouter := v1.Group("test")
-		routers.TestRouter(testRouter)
+		users := v1.Group("users")
 		routers.Health(health)
+		routers.User(users, config)
 	}
 }
 

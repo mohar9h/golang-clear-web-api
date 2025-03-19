@@ -28,9 +28,9 @@ func NewOTPService(config *config.Config) *OtpService {
 	return &OtpService{logger: logger, config: config, redisClient: redisClient}
 }
 
-func (service *OtpService) SetOtpCode(mobileNumber string) error {
+func (service *OtpService) SetOtpCode(mobileNumber string, otp string) error {
 	key := fmt.Sprintf("%s:%s", constants.RedisOtpDefaultKey, mobileNumber)
-	val := &OtpDto{Value: mobileNumber, Used: false}
+	val := &OtpDto{Value: otp, Used: false}
 
 	result, err := cache.Get[OtpDto](service.redisClient, key)
 	if err == nil {

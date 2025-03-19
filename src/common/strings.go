@@ -2,8 +2,11 @@ package common
 
 import (
 	"github.com/mohar9h/golang-clear-web-api/config"
+	"math"
 	"math/rand"
+	"strconv"
 	"strings"
+	"time"
 	"unicode"
 )
 
@@ -131,4 +134,14 @@ func HasDigits(s string) bool {
 		}
 	}
 	return false
+}
+
+func GenerateOtp() string {
+	configOtp := config.GetConfig()
+	rand.Seed(time.Now().UnixNano())
+	minDigit := int(math.Pow(10, float64(configOtp.Otp.Digits-1)))
+	maxDigit := int(math.Pow(10, float64(configOtp.Otp.Digits)-1))
+
+	var number = rand.Intn(maxDigit-minDigit) + minDigit
+	return strconv.Itoa(number)
 }

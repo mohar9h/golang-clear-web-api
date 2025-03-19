@@ -16,6 +16,7 @@ type Config struct {
 	Redis    RedisConfig
 	Password PasswordConfig
 	Logger   LoggerConfig
+	Otp      OtpConfig
 }
 
 type CorsConfig struct {
@@ -66,6 +67,13 @@ type PasswordConfig struct {
 	MaxLength        int
 	IncludeUppercase bool
 	IncludeLowercase bool
+}
+
+type OtpConfig struct {
+	Otp        time.Duration
+	ExpireTime time.Duration
+	Digits     int
+	Limiter    int
 }
 
 func GetConfig() *Config {

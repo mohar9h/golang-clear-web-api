@@ -14,10 +14,11 @@ var dbClient *gorm.DB
 var logger = logging.NewLogger(config.GetConfig())
 
 func InitDatabase(config *config.Config) error {
+	var err error
 	connection := fmt.Sprintf("host=%s port=%s user=%s dbname=%s password=%s sslmode=disable",
 		config.Postgres.Host, config.Postgres.Port, config.Postgres.User, config.Postgres.DbName, config.Postgres.Password)
 
-	dbClient, err := gorm.Open(postgres.Open(connection), &gorm.Config{})
+	dbClient, err = gorm.Open(postgres.Open(connection), &gorm.Config{})
 	if err != nil {
 		return err
 	}
@@ -40,5 +41,8 @@ func GetDBClient() *gorm.DB {
 
 func CloseDB() {
 	sqlDb, _ := dbClient.DB()
-	sqlDb.Close()
+	err := sqlDb.Close()
+	if err != nil {
+		return
+	}
 }

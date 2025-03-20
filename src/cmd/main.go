@@ -6,7 +6,7 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/data/cache"
 	"github.com/mohar9h/golang-clear-web-api/data/db"
 	"github.com/mohar9h/golang-clear-web-api/data/db/migrations"
-	"github.com/mohar9h/golang-clear-web-api/logging"
+	logging2 "github.com/mohar9h/golang-clear-web-api/pkg/logging"
 )
 
 // @securityDefinitions.api_key Bearer
@@ -15,17 +15,17 @@ import (
 func main() {
 	getConfig := config.GetConfig()
 
-	logger := logging.NewLogger(getConfig)
+	logger := logging2.NewLogger(getConfig)
 
 	err := cache.InitRedis(getConfig)
 	if err != nil {
-		logger.Fatal(logging.Redis, logging.Startup, err.Error(), nil)
+		logger.Fatal(logging2.Redis, logging2.Startup, err.Error(), nil)
 	}
 	defer cache.CloseRedis()
 
 	err = db.InitDatabase(getConfig)
 	if err != nil {
-		logger.Fatal(logging.Postgres, logging.Startup, err.Error(), nil)
+		logger.Fatal(logging2.Postgres, logging2.Startup, err.Error(), nil)
 	}
 	defer db.CloseDB()
 

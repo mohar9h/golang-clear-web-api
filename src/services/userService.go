@@ -5,7 +5,7 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/common"
 	"github.com/mohar9h/golang-clear-web-api/config"
 	"github.com/mohar9h/golang-clear-web-api/data/db"
-	"github.com/mohar9h/golang-clear-web-api/logging"
+	"github.com/mohar9h/golang-clear-web-api/pkg/logging"
 	"gorm.io/gorm"
 )
 

@@ -5,12 +5,12 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/constants"
 	"github.com/mohar9h/golang-clear-web-api/data/db"
 	"github.com/mohar9h/golang-clear-web-api/data/models"
-	"github.com/mohar9h/golang-clear-web-api/logging"
+	logging2 "github.com/mohar9h/golang-clear-web-api/pkg/logging"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"
 )
 
-var logger = logging.NewLogger(config.GetConfig())
+var logger = logging2.NewLogger(config.GetConfig())
 
 func Up() {
 	database := db.GetDBClient()
@@ -31,10 +31,10 @@ func Up() {
 
 	err := database.Migrator().CreateTable(tables...)
 	if err != nil {
-		logger.Error(logging.Postgres, logging.Migration, err.Error(), nil)
+		logger.Error(logging2.Postgres, logging2.Migration, err.Error(), nil)
 	}
 	createDefaultInformation(database)
-	logger.Info(logging.Postgres, logging.Migration, "Tables created", nil)
+	logger.Info(logging2.Postgres, logging2.Migration, "Tables created", nil)
 }
 
 func createDefaultInformation(database *gorm.DB) {

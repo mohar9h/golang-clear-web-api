@@ -6,7 +6,7 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/config"
 	"github.com/mohar9h/golang-clear-web-api/constants"
 	"github.com/mohar9h/golang-clear-web-api/data/cache"
-	"github.com/mohar9h/golang-clear-web-api/logging"
+	"github.com/mohar9h/golang-clear-web-api/pkg/logging"
 	"github.com/mohar9h/golang-clear-web-api/services/errors"
 	"time"
 )

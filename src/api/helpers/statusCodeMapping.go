@@ -6,9 +6,14 @@ import (
 )
 
 var StatusCodeMapping = map[string]int{
+	// Otp
 	errors.OtpExists:   409,
 	errors.OtpNotValid: 400,
 	errors.OtpUsed:     409,
+
+	//User
+	errors.EmailExists:    409,
+	errors.UsernameExists: 409,
 }
 
 func TranslateErrorToStatusCode(err error) int {

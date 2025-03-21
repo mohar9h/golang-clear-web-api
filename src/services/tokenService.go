@@ -15,7 +15,7 @@ type TokenService struct {
 }
 
 type tokenDto struct {
-	UserId       string   `json:"user_id"`
+	UserId       int      `json:"user_id"`
 	FirstName    string   `json:"first_name"`
 	LastName     string   `json:"last_name"`
 	Username     string   `json:"username"`

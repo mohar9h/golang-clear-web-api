@@ -29,7 +29,7 @@ services:
     container_name: elasticsearch
     volumes:
       - ./elk/elasticsearch/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml:ro,Z
-      - elasticsearch:/usr/share/elasticsearch/data:Z
+      - elasticsearch:/usr/share/elasticsearch/domains:Z
     ports:
       - 9200:9200
       - 9300:9300
@@ -49,7 +49,7 @@ services:
         ELASTIC_VERSION: ${ELASTIC_VERSION}
     volumes:
       - ./elk/kibana/config/kibana.yml:/usr/share/kibana/config/kibana.yml:ro,Z
-      - elasticsearch:/usr/share/kibana/data:Z
+      - elasticsearch:/usr/share/kibana/domains:Z
     ports:
       - 5601:5601
     environment:
@@ -92,9 +92,9 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: Mohammad1367
       POSTGRES_dB: car_sale_db
-      PGDATA: /data/postgres
+      PGDATA: /domains/postgres
     volumes:
-      - postgres:/data/postgres
+      - postgres:/domains/postgres
     ports:
       - "5432:5432"
     networks:

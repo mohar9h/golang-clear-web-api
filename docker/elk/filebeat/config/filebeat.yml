@@ -48,9 +48,9 @@ processors:
 #           config:
 #             - type: docker
 #               containers.ids:
-#                 - "${data.docker.container.id}"
+#                 - "${domains.docker.container.id}"
 #               paths:
-#                 - /var/lib/docker/containers/${data.docker.container.id}/app/logs/*.json
+#                 - /var/lib/docker/containers/${domains.docker.container.id}/app/logs/*.json
 #               fields:
 #                 environment: Docker
 #               tags: ["gocourse"]

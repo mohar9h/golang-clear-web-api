@@ -5,8 +5,8 @@ import (
 	"github.com/mohar9h/golang-clear-web-api/common"
 	"github.com/mohar9h/golang-clear-web-api/config"
 	"github.com/mohar9h/golang-clear-web-api/constants"
-	"github.com/mohar9h/golang-clear-web-api/data/db"
-	"github.com/mohar9h/golang-clear-web-api/data/models"
+	"github.com/mohar9h/golang-clear-web-api/domains/models"
+	"github.com/mohar9h/golang-clear-web-api/infrastructure/persistence/database"
 	"github.com/mohar9h/golang-clear-web-api/pkg/logging"
 	"github.com/mohar9h/golang-clear-web-api/services/errors"
 	"golang.org/x/crypto/bcrypt"
@@ -22,12 +22,12 @@ type UserService struct {
 }
 
 func NewUserService(config *config.Config) *UserService {
-	database := db.GetDBClient()
+	databaseClient := database.GetDBClient()
 	logger := logging.NewLogger(config)
 	return &UserService{
 		logger:       logger,
 		config:       config,
-		database:     database,
+		database:     databaseClient,
 		otpService:   NewOTPService(config),
 		tokenService: NewTokenService(config),
 	}

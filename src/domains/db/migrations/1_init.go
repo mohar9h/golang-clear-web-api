@@ -3,8 +3,8 @@ package migrations
 import (
 	"github.com/mohar9h/golang-clear-web-api/config"
 	"github.com/mohar9h/golang-clear-web-api/constants"
-	"github.com/mohar9h/golang-clear-web-api/data/db"
-	"github.com/mohar9h/golang-clear-web-api/data/models"
+	"github.com/mohar9h/golang-clear-web-api/domains/db"
+	"github.com/mohar9h/golang-clear-web-api/domains/models"
 	logging2 "github.com/mohar9h/golang-clear-web-api/pkg/logging"
 	"golang.org/x/crypto/bcrypt"
 	"gorm.io/gorm"

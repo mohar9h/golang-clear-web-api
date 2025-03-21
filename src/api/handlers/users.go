@@ -1,21 +1,25 @@
 package handlers
 
 import (
+	errors2 "errors"
 	"github.com/gin-gonic/gin"
 	"github.com/mohar9h/golang-clear-web-api/api/dto"
 	"github.com/mohar9h/golang-clear-web-api/api/helpers"
 	"github.com/mohar9h/golang-clear-web-api/config"
+	responses "github.com/mohar9h/golang-clear-web-api/domains/response"
 	"github.com/mohar9h/golang-clear-web-api/services"
+	"github.com/mohar9h/golang-clear-web-api/services/errors"
 	"net/http"
 )
 
 type UsersHandler struct {
-	services *services.UserService
+	userUseCase *usecases.UserUseCase
+	otpUseCase  *usecases.OTPUseCase
 }
 
 func NewUsersHandler(config *config.Config) *UsersHandler {
-	service := services.NewUserService(config)
-	return &UsersHandler{services: service}
+	usecase := usecase.NewUserUsecase(cfg, dependency.GetUserRepository(cfg))
+	return &UsersHandler{usecase: usecase}
 }
 
 func (userHandler *UsersHandler) SendOtp(context *gin.Context) {
@@ -24,6 +28,8 @@ func (userHandler *UsersHandler) SendOtp(context *gin.Context) {
 	if err != nil {
 		context.AbortWithStatusJSON(http.StatusBadRequest,
 			helpers.GenerateBaseResponseWithValidationErrors(nil, false, -1, err))
+		context.AbortWithStatusJSON(http.StatusBadRequest,
+			responses.Error(helpers.ForbiddenError, errors2.New(errors.UnAuthenticated)))
 		return
 	}
 	err = userHandler.services.SendOtp(req)
@@ -50,7 +56,7 @@ func (userHandler *UsersHandler) LoginByUsername(context *gin.Context) {
 	err := context.ShouldBindJSON(&request)
 	if err != nil {
 		context.AbortWithStatusJSON(http.StatusBadRequest,
-			helpers.GenerateBaseResponseWithValidationErrors(nil, false, -1, err))
+			(*helpers.Response).Error(false))
 		return
 	}
 	token, err := userHandler.services.LoginByUsername(request)
@@ -60,7 +66,7 @@ func (userHandler *UsersHandler) LoginByUsername(context *gin.Context) {
 		return
 	}
 
-	context.JSON(http.StatusCreated, helpers.GenerateBaseResponse(token, true, 1))
+	context.JSON(http.StatusCreated, helpers.Response.Success(token, true, 1))
 }
 
 // RegisterByUsername godoc

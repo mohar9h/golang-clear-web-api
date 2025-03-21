@@ -4,6 +4,7 @@ import (
 	"github.com/golang-jwt/jwt/v5"
 	"github.com/mohar9h/golang-clear-web-api/api/dto"
 	"github.com/mohar9h/golang-clear-web-api/config"
+	"github.com/mohar9h/golang-clear-web-api/constants"
 	"github.com/mohar9h/golang-clear-web-api/pkg/logging"
 	"github.com/mohar9h/golang-clear-web-api/services/errors"
 	"time"
@@ -38,14 +39,14 @@ func (service *TokenService) CreateToken(token *tokenDto) (*dto.TokenDetail, err
 	accessToken.RefreshTokenExpiresAt = time.Now().Add(service.config.Jwt.RefreshTokenExpireDuration * time.Minute).Unix()
 
 	accessTokenClaims := jwt.MapClaims{}
-	accessTokenClaims["user_id"] = token.UserId
-	accessTokenClaims["first_name"] = token.FirstName
-	accessTokenClaims["last_name"] = token.LastName
-	accessTokenClaims["username"] = token.Username
-	accessTokenClaims["mobile_number"] = token.MobileNumber
-	accessTokenClaims["email"] = token.Email
-	accessTokenClaims["roles"] = token.Roles
-	accessTokenClaims["expire_time"] = accessToken.AccessTokenExpiresAt
+	accessTokenClaims[constants.UserIdKey] = token.UserId
+	accessTokenClaims[constants.FirstNameKey] = token.FirstName
+	accessTokenClaims[constants.LastNameKey] = token.LastName
+	accessTokenClaims[constants.UsernameKey] = token.Username
+	accessTokenClaims[constants.MobileNumberKey] = token.MobileNumber
+	accessTokenClaims[constants.EmailKey] = token.Email
+	accessTokenClaims[constants.RolesKey] = token.Roles
+	accessTokenClaims[constants.ExpireTimeKey] = accessToken.AccessTokenExpiresAt
 
 	accessTokenJwt := jwt.NewWithClaims(jwt.SigningMethodHS256, accessTokenClaims)
 
@@ -56,8 +57,8 @@ func (service *TokenService) CreateToken(token *tokenDto) (*dto.TokenDetail, err
 	}
 
 	refreshTokenClaims := jwt.MapClaims{}
-	refreshTokenClaims["user_id"] = token.UserId
-	refreshTokenClaims["expire_time"] = accessToken.RefreshTokenExpiresAt
+	refreshTokenClaims[constants.UserIdKey] = token.UserId
+	refreshTokenClaims[constants.ExpireTimeKey] = accessToken.RefreshTokenExpiresAt
 
 	refreshTokenJwt := jwt.NewWithClaims(jwt.SigningMethodHS256, refreshTokenClaims)
 
